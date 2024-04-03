@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -22,7 +23,9 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('pages.dashboard.posts.create');
+        $categories = Category::all();
+
+        return view('pages.dashboard.posts.create', compact('categories'));
     }
 
     /**
@@ -33,6 +36,7 @@ class ProjectController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|string',
             'content' => 'required|string',
+            
         ]);
 
         $slug = Project::generateSlug($validatedData['title']);
@@ -58,7 +62,8 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         // $project = Project::findOrFail($id);
-        return view('pages.dashboard.posts.edit', compact('project'));
+        $categories = Category::all();
+        return view('pages.dashboard.posts.edit', compact('project', 'categories'));
     }
 
     /**
