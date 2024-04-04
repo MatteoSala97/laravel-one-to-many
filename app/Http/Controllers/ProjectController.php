@@ -36,13 +36,16 @@ class ProjectController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|string',
             'content' => 'required|string',
-            
+            'category_id' =>'required|exists:categories,id',
+
         ]);
 
         $slug = Project::generateSlug($validatedData['title']);
 
         $validatedData['slug'] = $slug;
 
+        $validatedData['category_id'] = $request->category_id;
+        
         $newProject = Project::create($validatedData);
 
         return redirect()->route('dashboard.posts.index');
@@ -63,6 +66,7 @@ class ProjectController extends Controller
     {
         // $project = Project::findOrFail($id);
         $categories = Category::all();
+
         return view('pages.dashboard.posts.edit', compact('project', 'categories'));
     }
 

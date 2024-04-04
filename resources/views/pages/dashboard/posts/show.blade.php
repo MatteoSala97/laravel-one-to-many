@@ -15,6 +15,7 @@
             <p class="card-text">ID: {{ $project->id }}</p>
             <p class="card-text" style="word-wrap: break-word;">Content: {{ $project->content }}</p>
             <p class="card-text">Slug: {{ $project->slug }}</p>
+            <p class="card-text">Category: {{ $project->category->name }}</p>
         </div>
     </div>
     <div class="mt-5 d-flex gap-3">

@@ -22,7 +22,12 @@ class UpdateCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => [
+                'required',
+                Rule::unique('projects')->ignore($this->project)
+            ],
+            'content'=> ['nullable'],
+            'category_id' =>['nullable', 'exists:categories,id'],
         ];
     }
 }

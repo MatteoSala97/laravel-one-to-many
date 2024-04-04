@@ -22,7 +22,9 @@ class StoreCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => ['required', 'unique:projects', 'max:150'],
+            'content' => ['nullable'],
+            'category_id' =>['nullable', 'exists:categories,id'],
         ];
     }
 }
